@@ -1,29 +1,66 @@
-O Guia Turístico Preguiçoso: Otimização de Rotas com Heurística Híbrida 🚶‍♂️⛰️
+# O Guia Turístico Preguiçoso
 
-Este projeto apresenta uma aplicação de Inteligência Artificial voltada para a mobilidade urbana em cenários de relevo acidentado, utilizando como estudo de caso a cidade histórica de Ouro Preto - MG.
+Roteamento de baixo esforço físico em Ouro Preto (MG) com A* e uma heurística híbrida.
 
-📖 Sobre o Projeto
-Diferente dos sistemas de GPS tradicionais que focam apenas em distância ou tempo, o Guia Turístico Preguiçoso utiliza o algoritmo A* (A-Star) modificado para considerar o esforço físico necessário para vencer ladeiras. A aplicação compara o desempenho do algoritmo de Dijkstra contra o A* utilizando uma Heurística Híbrida inovadora.
+Projeto desenvolvido na disciplina de Inteligência Artificial da UFOP, aplicado à mobilidade urbana
+em relevo acidentado, com a cidade histórica de Ouro Preto como estudo de caso.
 
-🛠️ A "Mágica": Heurística Híbrida
-O diferencial deste trabalho é a fórmula matemática da heurística (h(n)), que pondera dois fatores principais:
-* Preguiça (j): Distância Haversine em linha reta até o destino.
-* Esforço (i): Custo do desnível positivo (subida) acumulado.
-* Fator Alpha (alpha): Parâmetro de ajuste que define o perfil do usuário, variando de um "Atleta" (alpha = 0) a um "Morrofóbico" (alpha = 1).
+## Sobre o projeto
 
-📊 Resultados Obtidos
-A IA foi testada em 210 rotas reais simuladas em Ouro Preto:
-* Divergência de Rota: Em 40,5% dos casos, a IA decidiu caminhar um trajeto mais longo no plano para evitar a exaustão de uma subida íngreme.
-* Eficiência: O algoritmo A* foi significativamente mais eficiente que o Dijkstra, reduzindo em até 66% o número de nós visitados.
-* Precisão Geográfica: Implementação da Fórmula de Haversine para cálculos precisos considerando a curvatura da Terra.
+Sistemas de GPS tradicionais otimizam distância ou tempo. Em uma cidade de ladeiras, o caminho mais
+curto costuma ser o mais cansativo. O Guia Turístico Preguiçoso busca o roteiro entre os pontos
+turísticos que exige **menos esforço físico**, mesmo que isso signifique caminhar um pouco mais no plano.
 
-🚀 Tecnologias Utilizadas
-* Python 3.
-* Bibliotecas: Pandas (manipulação de dados), Matplotlib (visualização) e Heapq (fila de prioridade).
-* Ambiente: Google Colab / Python Tools for Visual Studio.
+A aplicação usa o algoritmo A* modificado para considerar o esforço de vencer subidas e compara seu
+desempenho com o Dijkstra.
 
-🔗 Execução
-O código completo com a análise de dados e gráficos pode ser visualizado e executado diretamente via Google Colab:
-Acesse o Notebook do Projeto: https://colab.research.google.com/drive/14A1cweYDydJcqh8tdiphCxkmyXRosfhp?usp=sharing
+O sistema foi testado em tempo real por estudantes de mestrado, para verificar se as rotas funcionavam
+na prática.
+<!-- TODO: quantas pessoas, em que condições e o que observaram. -->
 
-Desenvolvido por Álefe Tonidandel na disciplina de Inteligencia Artificial da UFOP.
+### Quando a volta não compensa
+
+O desvio pelo plano só vale enquanto reduz o esforço de forma relevante. Quando o trecho plano passa a
+custar cerca do dobro do caminho pelo morro, o esforço total fica parecido e o desvio é descartado.
+<!-- TODO: confirmar o critério exato (dobro de quê: distância ou custo?) e onde está no código. -->
+
+## A heurística híbrida
+
+O diferencial do trabalho é a heurística `h(n)`, que pondera dois fatores:
+
+| Fator | O que mede |
+|---|---|
+| **Preguiça (j)** | Distância de Haversine em linha reta até o destino |
+| **Esforço (i)** | Custo do desnível positivo (subida) acumulado |
+| **Alpha (α)** | Parâmetro que define o perfil do usuário: de **Atleta** (α = 0) a **Morrofóbico** (α = 1) |
+
+<!-- TODO: colar aqui a fórmula exata de h(n), como está no notebook. -->
+
+## Resultados
+
+Avaliação em **210 rotas simuladas** entre pontos reais de Ouro Preto:
+
+| Métrica | Resultado |
+|---|---|
+| Rotas avaliadas | 210 |
+| Rotas em que o algoritmo escolheu um trajeto mais longo, porém mais plano | **40,5%** |
+| Redução de nós visitados em relação ao Dijkstra | **até 66%** |
+
+<!-- TODO: incluir a redução média (não só o máximo) e explicar como o 66% foi calculado. -->
+
+A distância entre coordenadas usa a fórmula de Haversine, que considera a curvatura da Terra.
+
+## Tecnologias
+
+- Python 3
+- Pandas (manipulação de dados), Matplotlib (visualização) e `heapq` (fila de prioridade)
+- Google Colab e Python Tools for Visual Studio
+
+## Como executar
+
+O código completo, com a análise de dados e os gráficos, pode ser executado no Google Colab:
+[Abrir o notebook do projeto](https://colab.research.google.com/drive/14A1cweYDydJcqh8tdiphCxkmyXRosfhp?usp=sharing)
+
+## Autoria
+
+Álefe Tonidandel, na disciplina de Inteligência Artificial da UFOP.
